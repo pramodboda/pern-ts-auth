@@ -46,6 +46,7 @@ export const useAuth = () => {
     }
   };
 
+  // handle Login
   const handleLogin = async (email: string, password: string) => {
     try {
       const data = await login(email, password);
@@ -69,5 +70,13 @@ export const useAuth = () => {
     }
   };
 
-  return { token, user, handleRegister, handleLogin, error };
+  // handle Logout
+  const handleLogout = () => {
+    setToken(null);
+    setUser(null);
+    localStorage.removeItem("token");
+    localStorage.removeItem("user");
+  };
+
+  return { token, user, handleRegister, handleLogin, handleLogout, error };
 };

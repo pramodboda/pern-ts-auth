@@ -9,6 +9,8 @@ import Register from "./components/Register";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 
+// import ProtectedRoute from "./routes/ProtectedRoute"; // Import ProtectedRoute component;
+
 function App() {
   return (
     <>
@@ -16,8 +18,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/login" element={<Login />} />
+          {/* Redirect to login by default */}
           <Route path="/register" element={<Register />} />
           <Route path="/dashboard" element={<Dashboard />} />
+          {/* <ProtectedRoute path="/dashboard" element={<Dashboard />} /> */}
+          {/* Protect the dashboard route */}
+          {/* <Redirect from="/" to="/login" /> */}
+          {/* Redirect to login by default */}
         </Routes>
       </Router>
     </>
