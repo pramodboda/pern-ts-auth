@@ -48,12 +48,27 @@ export const login = async (req: Request, res: Response) => {
   const { email, password } = req.body;
   try {
     const user = await findUserByEmail(email);
-    if (!user || !(await bcrypt.compare(password, user.password))) {
+    if (!user) {
+      return res.status(401).json({ error: "User not found" });
+    }
+    const isPasswordValid = await bcrypt.compare(password, user.password);
+    if (!isPasswordValid) {
       return res.status(401).json({ error: "Invalid credentials" });
     }
+    console.log(user);
+    console.log("Login success");
     const token = generateToken(user.id);
-    res.json({ token });
+    res.json({
+      token,
+      user: {
+        id: user.id,
+        email: user.email,
+        username: user.username,
+        fullname: `${user.firstname} ${user.lastname}`, // Include any other fields you want to send back
+      },
+    });
   } catch (error) {
+    console.error("Error during login:", error); // Log the error for debugging
     res.status(500).json({ error: error, msg: "Login failed" });
   }
 };

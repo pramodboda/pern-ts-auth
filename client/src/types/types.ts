@@ -4,3 +4,10 @@
 export interface ErrorResponse {
   error: string;
 }
+
+export interface User {
+  id: string;
+  email: string;
+  username: string;
+  // Add other fields that are relevant to your user object
+}
