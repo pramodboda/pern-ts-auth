@@ -13,7 +13,7 @@
 import app from "./app";
 import pool from "./config/db";
 
-const PORT = process.env.PORT || 5000;
+const PORT = process.env.SERVER_PORT || 5000;
 
 pool.connect().then(() => {
   app.listen(PORT, () => {

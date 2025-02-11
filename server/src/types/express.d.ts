@@ -6,5 +6,8 @@ declare global {
     interface Request {
       userId?: string; // or the appropriate type (e.g., `number` or `string` depending on your implementation)
     }
+    interface ErrorResponse {
+      error: string;
+    }
   }
 }
