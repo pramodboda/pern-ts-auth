@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
+import { useNavigate } from "react-router-dom"; // If you're using React Router for navigation
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
@@ -7,6 +8,8 @@ const Login: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(false);
 
   const { handleLogin, token, user } = useAuth();
+
+  const navigate = useNavigate();
 
   const onSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -17,6 +20,9 @@ const Login: React.FC = () => {
         console.log("Login successful:", data);
         console.log(token);
         console.log(user);
+
+        // Redirect user to dashboard page after successful login
+        navigate("/dashboard"); // Adjust route as needed
       })
       .catch((err) => {
         // Handle error

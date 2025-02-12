@@ -9,22 +9,19 @@ import Register from "./components/Register";
 import Dashboard from "./pages/Dashboard";
 import Home from "./pages/Home";
 
-// import ProtectedRoute from "./routes/ProtectedRoute"; // Import ProtectedRoute component;
+import ProtectedRoute from "./routes/ProtectedRoute"; // Import ProtectedRoute component;
 
 function App() {
   return (
     <>
       <Router>
         <Routes>
-          <Route path="/" element={<Home />} />
+          <Route element={<ProtectedRoute />}>
+            <Route path="/" element={<Home />} />
+            <Route path="/dashboard" element={<Dashboard />} />
+          </Route>
           <Route path="/login" element={<Login />} />
-          {/* Redirect to login by default */}
           <Route path="/register" element={<Register />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-          {/* <ProtectedRoute path="/dashboard" element={<Dashboard />} /> */}
-          {/* Protect the dashboard route */}
-          {/* <Redirect from="/" to="/login" /> */}
-          {/* Redirect to login by default */}
         </Routes>
       </Router>
     </>
