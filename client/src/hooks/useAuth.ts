@@ -52,8 +52,9 @@ export const useAuth = () => {
       const data = await login(email, password);
       if (data.token && data.user) {
         setToken(data.token);
-        setUser(data.user); // Type safe now
+        setUser(data.user);
 
+        // Persist token, user info, and last activity time in sessionStorage
         sessionStorage.setItem("token", data.token); // Persist token in sessionStorage
         sessionStorage.setItem("user", JSON.stringify(data.user)); // Persist user info
         sessionStorage.setItem("lastActivity", Date.now().toString()); // Set last activity time
@@ -61,6 +62,7 @@ export const useAuth = () => {
         setError(null); // Reset error if login is successful
       } else {
         setError("Login failed, no token or user info received.");
+        throw new Error("Login failed, no token or user info received.");
       }
     } catch (err) {
       // Catch the error and set the error state to the message
@@ -70,6 +72,7 @@ export const useAuth = () => {
       } else {
         setError("Something went wrong during login.");
       }
+      throw err; // Re-throw the error to propagate it to the caller
     }
   };
 

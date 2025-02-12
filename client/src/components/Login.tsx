@@ -1,34 +1,31 @@
 import React, { useState } from "react";
 import { useAuth } from "../hooks/useAuth";
-import { useNavigate } from "react-router-dom"; // If you're using React Router for navigation
+import { useNavigate } from "react-router-dom";
 
 const Login: React.FC = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { handleLogin, token, user } = useAuth();
-
+  const { handleLogin, error } = useAuth(); // Destructure error from useAuth
   const navigate = useNavigate();
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     setLoading(true);
 
-    handleLogin(email, password)
-      .then((data) => {
-        console.log("Login successful:", data);
-        console.log(token);
-        console.log(user);
+    try {
+      await handleLogin(email, password); // Await the login function
+      console.log("Login successful");
 
-        // Redirect user to dashboard page after successful login
-        navigate("/dashboard"); // Adjust route as needed
-      })
-      .catch((err) => {
-        // Handle error
-        console.error("Login error:", err);
-        setLoading(false);
-      });
+      // Redirect user to dashboard page after successful login
+      navigate("/dashboard"); // Adjust route as needed
+    } catch (err) {
+      console.error("Login error:", err);
+      // The error is already set in handleLogin, so no need to set it here
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (
@@ -51,8 +48,10 @@ const Login: React.FC = () => {
         required
       />
       <button type="submit" disabled={loading}>
-        {loading ? "Login..." : "Login"}
+        {loading ? "Logging in..." : "Login"}
       </button>
+      {/* Display error if login failed */}
+      {error && <div className="error-message">{error}</div>}
     </form>
   );
 };
