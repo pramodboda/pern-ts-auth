@@ -14,26 +14,23 @@ const Register: React.FC = () => {
 
   const { handleRegister, error } = useAuth();
 
-  const onSubmit = (e: React.FormEvent) => {
+  const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // handleRegister(firstname, lastname, username, email, password);
 
     setLoading(true);
 
-    handleRegister(firstname, lastname, username, email, password)
-      .then((data) => {
-        // Handle success (e.g., redirect to the dashboard or login page)
-        console.log("Registration successful:", data);
-        alert("Registration successful! Please log in.");
+    try {
+      await handleRegister(firstname, lastname, username, email, password);
 
-        // Redirect user to login page after successful registration
-        navigate("/login"); // Adjust route as needed
-      })
-      .catch((err) => {
-        // Handle error
-        console.error("Registration error:", err);
-        setLoading(false);
-      });
+      console.log("Register successful! Please log in.");
+
+      navigate("/login");
+    } catch (err) {
+      console.error("Register error:", err);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

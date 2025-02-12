@@ -28,12 +28,23 @@ export const useAuth = () => {
         email,
         password
       );
+
+      // if (data.token && data.user) {
+      //   setToken(data.token);
+      //   setUser(data.user);
+
+      //   // sessionStorage.setItem("token", data.token);
+      //   // sessionStorage.setItem("user", JSON.stringify(data.user));
+      //   // sessionStorage.setItem("lastActivity", Date.now().toString()); // Set last activity time
+
+      //   setError(null); // Reset error if registration is successful
+      // }
       setToken(data.token);
       setUser(data.user);
 
-      // sessionStorage.setItem("token", data.token);
-      // sessionStorage.setItem("user", JSON.stringify(data.user));
-      // sessionStorage.setItem("lastActivity", Date.now().toString()); // Set last activity time
+      //   // sessionStorage.setItem("token", data.token);
+      //   // sessionStorage.setItem("user", JSON.stringify(data.user));
+      //   // sessionStorage.setItem("lastActivity", Date.now().toString()); // Set last activity time
 
       setError(null); // Reset error if registration is successful
     } catch (err: unknown) {
@@ -43,6 +54,7 @@ export const useAuth = () => {
       } else {
         setError("Something went wrong during registration.");
       }
+      throw err; // Re-throw the error to propagate it to the caller
     }
   };
 
