@@ -1,5 +1,5 @@
 import axios, { AxiosError } from "axios";
-
+import { AuthResponse } from "../types/types";
 const API_URL =
   import.meta.env.REACT_APP_API_URL || "http://localhost:5000/api/auth";
 
@@ -9,7 +9,7 @@ export const register = async (
   username: string,
   email: string,
   password: string
-) => {
+): Promise<AuthResponse> => {
   try {
     const response = await axios.post(`${API_URL}/register`, {
       firstname,
@@ -50,7 +50,10 @@ export const register = async (
   }
 };
 
-export const login = async (email: string, password: string) => {
+export const login = async (
+  email: string,
+  password: string
+): Promise<AuthResponse> => {
   try {
     const response = await axios.post(`${API_URL}/login`, { email, password });
     return response.data; // Return the successful response

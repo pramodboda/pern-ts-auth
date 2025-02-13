@@ -29,24 +29,16 @@ export const useAuth = () => {
         password
       );
 
-      // if (data.token && data.user) {
-      //   setToken(data.token);
-      //   setUser(data.user);
+      if (data.token && data.user) {
+        setToken(data.token);
+        setUser(data.user);
+        // // Persist token, user info, and last activity time from sessionStorage
+        // sessionStorage.setItem("token", data.token);
+        // sessionStorage.setItem("user", JSON.stringify(data.user));
+        // sessionStorage.setItem("lastActivity", Date.now().toString()); // Set last activity time
 
-      //   // sessionStorage.setItem("token", data.token);
-      //   // sessionStorage.setItem("user", JSON.stringify(data.user));
-      //   // sessionStorage.setItem("lastActivity", Date.now().toString()); // Set last activity time
-
-      //   setError(null); // Reset error if registration is successful
-      // }
-      setToken(data.token);
-      setUser(data.user);
-
-      //   // sessionStorage.setItem("token", data.token);
-      //   // sessionStorage.setItem("user", JSON.stringify(data.user));
-      //   // sessionStorage.setItem("lastActivity", Date.now().toString()); // Set last activity time
-
-      setError(null); // Reset error if registration is successful
+        setError(null); // Reset error if registration is successful
+      }
     } catch (err: unknown) {
       // Catch the error and set the error state to the message
       if (err instanceof Error) {
@@ -66,7 +58,7 @@ export const useAuth = () => {
         setToken(data.token);
         setUser(data.user);
 
-        // Persist token, user info, and last activity time in sessionStorage
+        // Persist token, user info, and last activity time from sessionStorage
         sessionStorage.setItem("token", data.token); // Persist token in sessionStorage
         sessionStorage.setItem("user", JSON.stringify(data.user)); // Persist user info
         sessionStorage.setItem("lastActivity", Date.now().toString()); // Set last activity time

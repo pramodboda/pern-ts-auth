@@ -11,3 +11,7 @@ export interface User {
   username: string;
   // Add other fields that are relevant to your user object
 }
+export interface AuthResponse {
+  user: User;
+  token: string;
+}
