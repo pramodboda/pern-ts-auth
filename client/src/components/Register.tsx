@@ -10,9 +10,8 @@ const Register: React.FC = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
 
+  const { handleRegister, error } = useAuth(); // Destructure handleLogin and error from useAuth
   const navigate = useNavigate();
-
-  const { handleRegister, error } = useAuth();
 
   const onSubmit = async (e: React.FormEvent) => {
     e.preventDefault();

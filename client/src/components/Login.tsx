@@ -7,7 +7,7 @@ const Login: React.FC = () => {
   const [password, setPassword] = useState("");
   const [loading, setLoading] = useState<boolean>(false);
 
-  const { handleLogin, error } = useAuth(); // Destructure error from useAuth
+  const { handleLogin, error } = useAuth(); // Destructure handleLogin and error from useAuth
   const navigate = useNavigate();
 
   const onSubmit = async (e: React.FormEvent) => {
